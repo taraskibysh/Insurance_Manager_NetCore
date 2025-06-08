@@ -1,60 +1,93 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance Application</title>
+    <title>Мої Страховки - InsurePro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Insurance Application</h1>
 
-    <div class="container" id="auth-section">
-        <h2>Register</h2>
-        <form id="register-form">
-            <input type="text" id="firstName" placeholder="First Name" required>
-            <input type="text" id="lastName" placeholder="Last Name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Register</button>
-        </form>
+<header class="site-header">
+    <nav class="container nav-container">
+        <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            InsurePro
+        </a>
+        <div class="header-actions">
+            <span id="user-greeting" class="user-greeting hidden"></span>
+            <button id="logout-button" class="btn btn-logout hidden">Вийти</button>
+        </div>
+    </nav>
+</header>
 
-        <h2>Login</h2>
-        <form id="login-form">
-            <input type="email" id="login-email" placeholder="Email" required>
-            <input type="password" id="login-password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+<main class="container site-main">
+    <section id="insurance-section" class="insurance-section hidden"> <div class="insurance-layout">
+        <div class="create-insurance-column">
+            <div class="card">
+                <h2>Створити Нову Страховку</h2>
+                <form id="create-insurance-form" class="form-stacked">
+                    <div>
+                        <label for="type">Тип страхування:</label>
+                        <select id="type" required>
+                            <option value="" disabled selected>Оберіть тип</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="method">Метод страхування:</label>
+                        <select id="method" required>
+                            <option value="" disabled selected>Оберіть метод</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="status">Статус страхування:</label>
+                        <select id="status" required>
+                            <option value="" disabled selected>Оберіть статус</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="price">Ціна (грн):</label>
+                        <input type="number" id="price" placeholder="0.00" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full-width">Створити Страховку</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="insurance-list-column">
+            <div class="card">
+                <h2>Мої Страховки</h2>
+                <div id="insurance-list" class="insurance-items-container">
+                    <p class="empty-list-message">Завантаження страховок...</p>
+                </div>
+            </div>
+        </div>
     </div>
+    </section>
+    <section id="auth-redirect-message" class="auth-section hidden">
+        <div class="card auth-card" style="text-align: center;">
+            <p>Будь ласка, <a href="login.html">увійдіть</a> або <a href="register.html">зареєструйтеся</a>, щоб переглянути свої страховки.</p>
+        </div>
+    </section>
+</main>
 
-    <div class="container hidden" id="insurance-section">
-        <h2>Create Insurance</h2>
-        <form id="create-insurance-form">
-            <label for="type">Insurance Type:</label>
-            <select id="type" required>
-                <option value="" disabled selected>Select Insurance Type</option>
-            </select>
+<footer class="site-footer">
+    <p>&copy; <span id="current-year"></span> InsurePro. Всі права захищено.</p>
+    <p class="footer-subtitle">Розроблено з ❤️ для вашої безпеки</p>
+</footer>
 
-            <label for="method">Method of Insurance:</label>
-            <select id="method" required>
-                <option value="" disabled selected>Select Method</option>
-            </select>
-
-            <label for="status">Insurance Status:</label>
-            <select id="status" required>
-                <option value="" disabled selected>Select Status</option>
-            </select>
-
-            <label for="price">Price:</label>
-            <input type="number" id="price" placeholder="Price">
-            <button type="submit">Create Insurance</button>
-        </form>
-        <button type="button" id="back-to-auth">Back to Login/Register</button>
-
-        <h2>Insurance List</h2>
-        <div id="insurance-list"></div>
+<div id="message-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="message-modal-title">Повідомлення</h3>
+            <button id="message-modal-close-top" class="modal-close-button">&times;</button>
+        </div>
+        <p id="message-modal-text">Текст повідомлення тут.</p>
+        <button id="message-modal-close-bottom" class="btn btn-primary btn-full-width">OK</button>
     </div>
+</div>
 
-    <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

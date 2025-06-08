@@ -1,216 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance Details</title>
+    <title>Деталі Страховки - InsurePro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" id="insurance-details">
-        <h1>Insurance Details</h1>
-        <div id="insurance-info">Loading...</div>
 
-        <!-- Edit Form (hidden by default) -->
-        <div id="edit-form" style="display:none;">
-            <h2>Edit Insurance</h2>
-            <form id="edit-insurance-form">
-                    <label for="type">Insurance Type:</label>
-                    <select id="type" required>
-                        <option value="" disabled selected>Select Insurance Type</option>
-                    </select>
-        
-                    <label for="method">Method of Insurance:</label>
-                    <select id="method" required>
-                        <option value="" disabled selected>Select Method</option>
-                    </select>
-        
-                    <label for="status">Insurance Status:</label>
-                    <select id="status" required>
-                        <option value="" disabled selected>Select Status</option>
-                    </select>
-        
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" placeholder="Price">
-                    <button type="submit">Update Insurance</button>
-            </form>
-            <button id="cancel-edit-btn">Cancel</button>
+<header class="site-header">
+    <nav class="container nav-container">
+        <a href="index.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            InsurePro
+        </a>
+        <div class="header-actions">
+            <span id="user-greeting-details" class="user-greeting hidden"></span>
+            <button id="logout-button-details" class="btn btn-logout hidden">Вийти</button>
         </div>
+    </nav>
+</header>
 
-        <!-- Action Buttons -->
-        <button id="back-btn">Back to Insurance List</button>
-        <button id="edit-btn">Edit Insurance</button>
-        <button id="delete-btn">Delete Insurance</button>
+<main class="container site-main">
+    <section class="details-section">
+        <div class="card details-card">
+            <div class="details-card-header">
+                <h1>Деталі Страховки</h1>
+                <button id="back-btn" class="btn btn-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+                    Назад до списку
+                </button>
+            </div>
+
+            <div id="insurance-info" class="insurance-info-display">
+                <p><strong class="info-label">ID:</strong> <span id="details-id">Завантаження...</span></p>
+                <p><strong class="info-label">Тип:</strong> <span id="details-type">Завантаження...</span></p>
+                <p><strong class="info-label">Метод:</strong> <span id="details-method">Завантаження...</span></p>
+                <p><strong class="info-label">Статус:</strong> <span id="details-status">Завантаження...</span></p>
+                <p><strong class="info-label">Ціна:</strong> <span id="details-price">Завантаження...</span> грн</p>
+                <p><strong class="info-label">Річна плата:</strong> <span id="details-pay">Завантаження...</span> грн</p>
+            </div>
+
+            <div class="action-buttons">
+                <button id="edit-btn" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                    Редагувати
+                </button>
+                <button id="delete-btn" class="btn btn-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    Видалити
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; <span id="current-year-details"></span> InsurePro. Всі права захищено.</p>
+    <p class="footer-subtitle">Надійне страхування для вашого спокою</p>
+</footer>
+
+<div id="edit-insurance-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Редагувати Страховку</h3>
+            <button id="edit-modal-close-top" class="modal-close-button">&times;</button>
+        </div>
+        <form id="edit-form" class="form-stacked">
+            <input type="hidden" id="edit-insurance-id">
+            <div>
+                <label for="edit-type">Тип страхування:</label>
+                <select id="edit-type" required>
+                </select>
+            </div>
+            <div>
+                <label for="edit-method">Метод страхування:</label>
+                <select id="edit-method" required>
+                </select>
+            </div>
+            <div>
+                <label for="edit-status">Статус страхування:</label>
+                <select id="edit-status" required>
+                </select>
+            </div>
+            <div>
+                <label for="edit-price">Ціна:</label>
+                <input type="number" id="edit-price" placeholder="0.00" step="0.01" required>
+            </div>
+            <div>
+                <label for="edit-pay">Річна плата (грн):</label>
+                <input type="number" id="edit-pay" placeholder="0.00" step="0.01" required>
+            </div>
+            <div class="modal-actions">
+                <button type="submit" class="btn btn-primary">Зберегти Зміни</button>
+                <button type="button" id="edit-modal-cancel-bottom" class="btn btn-light">Скасувати</button>
+            </div>
+        </form>
     </div>
+</div>
 
-    <script src="app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const insuranceId = new URLSearchParams(window.location.search).get('id');
-            const insuranceInfo = document.getElementById('insurance-info');
-            const editForm = document.getElementById('edit-form');
-            const editBtn = document.getElementById('edit-btn');
-            const deleteBtn = document.getElementById('delete-btn');
-            const backBtn = document.getElementById('back-btn');
-    
-            if (!insuranceId) {
-                alert('No insurance ID provided.');
-                return;
-            }
-    
-            let authToken = localStorage.getItem('authToken') || '';
-    
-            // Enum values
-            const insuranceEnums = {
-                TypeOfInsurance: [
-                    { value: 'CarInsurance', text: 'Car Insurance' },
-                    { value: 'HealthInsurance', text: 'Health Insurance' },
-                    { value: 'HouseInsurance', text: 'House Insurance' },
-                    { value: 'AnotherInsurance', text: 'Another Insurance' },
-                ],
-                MethodOfInsurance: [
-                    { value: 'FullInsurance', text: 'Full Insurance' },
-                    { value: 'HalfInsurance', text: 'Half Insurance' },
-                    { value: 'QuarterInsurance', text: 'Quarter Insurance' },
-                ],
-                InsuranceStatus: [
-                    { value: 'Active', text: 'Active' },
-                    { value: 'Canceled', text: 'Canceled' },
-                ],
-            };
-    
-            // Fetch insurance details from the server
-            try {
-                const response = await fetch(`https://localhost:7279/controller/Id?id=${insuranceId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                    }
-                });
-    
-                if (!response.ok) {
-                    throw new Error('Failed to fetch insurance details');
-                }
-    
-                const insurance = await response.json();
-                renderInsuranceDetails(insurance);
-            } catch (error) {
-                console.error('Error fetching insurance details:', error);
-                alert('Could not fetch insurance details.');
-            }
-    
-            // Function to render insurance details
-            function renderInsuranceDetails(insurance) {
-                insuranceInfo.innerHTML = `
-                    <p><strong>ID:</strong> ${insurance.id}</p>
-                    <p><strong>Type of Insurance:</strong> ${insurance.typeOfInsurance}</p>
-                    <p><strong>Method of Insurance:</strong> ${insurance.methodOfInsurance}</p>
-                    <p><strong>Status:</strong> ${insurance.status}</p>
-                    <p><strong>Price:</strong> ${insurance.price}</p>
-                    <p><strong>Pay:</strong> ${insurance.pay}</p>
-                    <p><strong>User ID:</strong> ${insurance.owner}</p>
-                `;
-    
-                // Populate edit form fields with enum options
-                populateSelect('type', insuranceEnums.TypeOfInsurance, insurance.typeOfInsurance);
-                populateSelect('method', insuranceEnums.MethodOfInsurance, insurance.methodOfInsurance);
-                populateSelect('status', insuranceEnums.InsuranceStatus, insurance.status);
-    
-                // Populate price field
-                document.getElementById('price').value = insurance.price;
-            }
-    
-            // Function to populate the dropdown with enum values
-            function populateSelect(selectId, enumArray, selectedValue) {
-                const selectElement = document.getElementById(selectId);
-                selectElement.innerHTML = ''; // Clear existing options
-    
-                enumArray.forEach(option => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = option.value;
-                    optionElement.textContent = option.text;
-                    // Set the selected option based on the current insurance value
-                    if (option.value === selectedValue) {
-                        optionElement.selected = true;
-                    }
-                    selectElement.appendChild(optionElement);
-                });
-            }
-    
-            // Back to the insurance list
-            backBtn.addEventListener('click', () => {
-                window.location.href = 'index.html'; // Redirect to the insurance list
-            });
-    
-            // Edit insurance functionality - only show the form, don't update yet
-            editBtn.addEventListener('click', () => {
-                editForm.style.display = 'block';
-                insuranceInfo.style.display = 'none';
-            });
-    
-            // Form submit event for updating insurance
-            document.getElementById('edit-insurance-form').addEventListener('submit', async (e) => {
-                e.preventDefault();  // Prevent form submission from reloading the page
-    
-                const type = document.getElementById('type').value;
-                const method = document.getElementById('method').value;
-                const status = document.getElementById('status').value;
-                let price = document.getElementById('price').value;
-    
-                price = parseFloat(price);
-                if (isNaN(price)) {
-                    alert('Please enter a valid price.');
-                    return;
-                }
-    
-                try {
-                    const response = await fetch(`https://localhost:7279/controller/Id?id=${insuranceId}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${authToken}`,
-                        },
-                        body: JSON.stringify({ type, method, status, price }),
-                    });
-    
-                    if (response.ok) {
-                        alert('Insurance updated successfully!');
-                        window.location.reload(); // Reload the page to display updated information
-                    } else {
-                        const data = await response.json();
-                        alert(data.message || 'Failed to update insurance.');
-                    }
-                } catch (error) {
-                    alert('Error: ' + error.message);
-                }
-            });
-    
-            // Delete insurance functionality
-            deleteBtn.addEventListener('click', async () => {
-                const confirmDelete = confirm('Are you sure you want to delete this insurance?');
-                if (confirmDelete) {
-                    try {
-                        const response = await fetch(`https://localhost:7279/controller/Id?id=${insuranceId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Authorization': `Bearer ${authToken}`,
-                            }
-                        });
-    
-                        if (response.ok) {
-                            alert('Insurance deleted successfully!');
-                            window.location.href = 'index.html'; // Redirect to the insurance list
-                        } else {
-                            const data = await response.json();
-                            alert(data.message || 'Failed to delete insurance.');
-                        }
-                    } catch (error) {
-                        alert('Error: ' + error.message);
-                    }
-                }
-            });
-        });
-    </script>
-    
+<div id="delete-confirm-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="text-danger">Підтвердити Видалення</h3>
+            <button id="delete-confirm-modal-close-top" class="modal-close-button">&times;</button>
+        </div>
+        <p id="delete-confirm-modal-text">Ви впевнені, що хочете видалити цю страховку? Цю дію неможливо буде скасувати.</p>
+        <div class="modal-actions">
+            <button id="delete-confirm-modal-confirm-btn" class="btn btn-danger">Так, Видалити</button>
+            <button id="delete-confirm-modal-cancel-btn" class="btn btn-light">Скасувати</button>
+        </div>
+    </div>
+</div>
+
+<div id="message-modal-details" class="modal-overlay hidden">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="message-modal-title-details">Повідомлення</h3>
+            <button id="message-modal-close-top-details" class="modal-close-button">&times;</button>
+        </div>
+        <p id="message-modal-text-details">Текст повідомлення тут.</p>
+        <button id="message-modal-close-bottom-details" class="btn btn-primary btn-full-width">OK</button>
+    </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using System.Text;
+using InsuranceCompany.Contracts.Mapping.Authentication;
 using InsuranceCompany.Infrastructure;
 using Microsoft.OpenApi.Models;
 
@@ -20,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services
         .AddAplication()
         .AddInfrastructure(builder.Configuration);
-
+    builder.Services.AddAutoMapper(typeof(AuthResponseProfile).Assembly);
     builder.Services.AddAuthorization();
     builder.Services.AddControllers()
         .AddJsonOptions(options =>
@@ -87,7 +88,8 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 {
-
+    
+    
     if (app.Environment.IsDevelopment())
     {
 

@@ -1,3 +1,5 @@
+using AutoMapper;
+
 namespace InsuranceCompany.Api.Controllers
 {
     using Microsoft.AspNetCore.Mvc;  
@@ -9,10 +11,12 @@ namespace InsuranceCompany.Api.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IMapper _mapper; 
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        public AuthenticationController(IAuthenticationService authenticationService, IMapper mapper)
         {
             _authenticationService = authenticationService;
+            _mapper = mapper;
         }
 
         // Реєстрація користувача
@@ -27,13 +31,7 @@ namespace InsuranceCompany.Api.Controllers
                     request.Email,
                     request.Password);
 
-                var response = new AuthenticationResponce(
-                    authResult.Id,
-                    authResult.FirstName,
-                    authResult.LastName,
-                    authResult.Email,
-                    authResult.Token
-                );
+                var response = _mapper.Map<AuthenticationResponce>(authResult);
 
                 return Ok(response); 
             }
@@ -57,13 +55,8 @@ namespace InsuranceCompany.Api.Controllers
                     request.Email,
                     request.Password);
 
-                var response = new AuthenticationResponce(
-                    authResult.Id,
-                    authResult.FirstName,
-                    authResult.LastName,
-                    authResult.Email,
-                    authResult.Token
-                );
+                var response = _mapper.Map<AuthenticationResponce>(authResult);
+
 
                 return Ok(response); 
             }
